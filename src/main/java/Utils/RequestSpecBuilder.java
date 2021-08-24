@@ -1,6 +1,7 @@
 package Utils;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class RequestSpecBuilder {
         return RestAssured
                 .given()
                 .baseUri(PropertiesUtils.getProperty("base_url"))
-                .header("Content-Type", "application/json")
+                .contentType(ContentType.JSON)
                 .urlEncodingEnabled(false);
     }
 }
