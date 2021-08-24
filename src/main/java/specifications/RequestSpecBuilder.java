@@ -1,5 +1,6 @@
-package Utils;
+package specifications;
 
+import utils.PropertiesUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;

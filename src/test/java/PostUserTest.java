@@ -1,5 +1,5 @@
-import Utils.PropertiesUtils;
-import Utils.RequestSpecBuilder;
+import utils.PropertiesUtils;
+import specifications.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
