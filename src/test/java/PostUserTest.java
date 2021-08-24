@@ -21,7 +21,7 @@ public class PostUserTest {
     }
 
     @Test
-    public void testPostUser() throws IOException {
+    public void testPostUser() {
         Response response = requestSpecification
                                 .body(new File(System.getProperty("user.dir")+"/src/main/resources/UserDetails.json"))
                                 .post(EndPoints.POST_USER_REQUEST.getEndPoint());
@@ -33,8 +33,8 @@ public class PostUserTest {
     }
 
     @AfterTest
-    public void tearDown() throws IOException {
-        requestSpecification.pathParams("id", id).delete(PropertiesUtils.getProperty("delete_user_uri")).then().assertThat().statusCode(204);
+    public void tearDown() {
+        requestSpecification.pathParams("id", id).delete(EndPoints.DELETE_USER_REQUEST.getEndPoint()).then().assertThat().statusCode(204);
     }
 
 }
