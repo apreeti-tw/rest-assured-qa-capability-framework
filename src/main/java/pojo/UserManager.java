@@ -1,8 +1,12 @@
 package pojo;
 
-public class UserManager {
+import java.util.Map;
 
-    public User getUser(String name, String job){
-        return User.builder().name(name).job(job).build();
+public final class UserManager {
+
+    private UserManager(){}
+
+    public static User getUser(Map<String, String> user){
+        return User.builder().name(user.get("name")).job(user.get("job")).build();
     }
 }

@@ -1,16 +1,16 @@
 import enums.EndPoints;
-import pojo.UserManager;
-import utils.PropertiesUtils;
-import specifications.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pojo.UserManager;
+import specifications.RequestSpecBuilder;
+import utils.DataProviderUtils;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 public class PostUserTest {
     private RequestSpecification requestSpecification;
@@ -21,15 +21,15 @@ public class PostUserTest {
         requestSpecification = RequestSpecBuilder.getRequestSpec();
     }
 
-    @Test
-    public void testPostUser() {
+    @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
+    public void testPostUser(Map<String,String> user) {
         Response response = requestSpecification
-                                .body(new UserManager().getUser("Ayush", "leader"))
+                                .body(UserManager.getUser(user))
                                 .post(EndPoints.POST_USER_REQUEST.getEndPoint());
 
         Assert.assertEquals(response.jsonPath().get("name"), "Ayush");
-        Assert.assertEquals(response.jsonPath().get("job"), "leader");
-        Assert.assertEquals(response.getStatusCode(), 201);
+        Assert.assertEquals(response.jsonPath().get("job"), "Leader");
+        Assert.assertEquals(response.getStatusCode(), Integer.parseInt(user.get("expected")));
         id = response.jsonPath().get("id");
     }
 
