@@ -1,27 +1,39 @@
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import Utils.PropertiesUtils;
+import Utils.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 public class PostUserTest {
+    private RequestSpecification requestSpecification;
+    String id = "";
+
+    @BeforeTest
+    public void setup() throws IOException {
+        requestSpecification = RequestSpecBuilder.getRequestSpec();
+    }
 
     @Test
-    public void testPostUser(){
-        RestAssured.baseURI = "https://reqres.in/";
+    public void testPostUser() throws IOException {
+        Response response = requestSpecification
+                                .body(new File(System.getProperty("user.dir")+"/src/main/resources/UserDetails.json"))
+                                .post(PropertiesUtils.getProperty("post_user_uri"));
 
-        String response = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(new File(System.getProperty("user.dir")+"/src/main/resources/UserDetails.json"))
-                .when()
-                .post("/api/users")
-                .then()
-                .assertThat()
-                .statusCode(201)
-                .extract()
-                .response()
-                .asString();
-
-        System.out.println(response);
+        Assert.assertEquals(response.jsonPath().get("name"), "Ayush");
+        Assert.assertEquals(response.jsonPath().get("job"), "leader");
+        Assert.assertTrue(response.getStatusCode() == 201);
+        id = response.jsonPath().get("id");
     }
+
+    @AfterTest
+    public void tearDown() throws IOException {
+        requestSpecification.pathParams("id", id).delete(PropertiesUtils.getProperty("delete_user_uri")).then().assertThat().statusCode(204);
+    }
+
 }
