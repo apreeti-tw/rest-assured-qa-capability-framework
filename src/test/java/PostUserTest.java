@@ -1,3 +1,4 @@
+import enums.EndPoints;
 import utils.PropertiesUtils;
 import specifications.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -23,7 +24,7 @@ public class PostUserTest {
     public void testPostUser() throws IOException {
         Response response = requestSpecification
                                 .body(new File(System.getProperty("user.dir")+"/src/main/resources/UserDetails.json"))
-                                .post(PropertiesUtils.getProperty("post_user_uri"));
+                                .post(EndPoints.POST_USER_REQUEST.getEndPoint());
 
         Assert.assertEquals(response.jsonPath().get("name"), "Ayush");
         Assert.assertEquals(response.jsonPath().get("job"), "leader");
