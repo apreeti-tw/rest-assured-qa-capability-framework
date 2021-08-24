@@ -1,4 +1,5 @@
 import enums.EndPoints;
+import pojo.UserManager;
 import utils.PropertiesUtils;
 import specifications.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -23,12 +24,12 @@ public class PostUserTest {
     @Test
     public void testPostUser() {
         Response response = requestSpecification
-                                .body(new File(System.getProperty("user.dir")+"/src/main/resources/UserDetails.json"))
+                                .body(new UserManager().getUser("Ayush", "leader"))
                                 .post(EndPoints.POST_USER_REQUEST.getEndPoint());
 
         Assert.assertEquals(response.jsonPath().get("name"), "Ayush");
         Assert.assertEquals(response.jsonPath().get("job"), "leader");
-        Assert.assertTrue(response.getStatusCode() == 201);
+        Assert.assertEquals(response.getStatusCode(), 201);
         id = response.jsonPath().get("id");
     }
 
