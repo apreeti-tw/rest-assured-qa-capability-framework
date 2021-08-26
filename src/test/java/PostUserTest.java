@@ -2,19 +2,21 @@ import enums.EndPoints;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pojo.UserManager;
+import threadlocals.UserManager;
 import utils.DataProviderUtils;
 
 import java.util.Map;
 
-import static pojo.DataManager.getId;
-import static pojo.DataManager.setId;
+import static threadlocals.SpecManager.getRequestSpec;
+import static threadlocals.UserManager.getId;
+import static threadlocals.UserManager.setId;
+
 
 public class PostUserTest extends BaseTest{
 
     @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class, groups = {"delete_user_after"})
     public void testPostUser(Map<String,String> user) {
-        Response response = requestSpecification
+        Response response = getRequestSpec()
                                 .body(UserManager.getUser(user))
                                 .post(EndPoints.POST_USER_REQUEST.getEndPoint());
 
@@ -27,7 +29,7 @@ public class PostUserTest extends BaseTest{
 
     @Test (groups = {"add_user_before"})
     public void testDeleteUser() {
-        Response response = requestSpecification
+        Response response = getRequestSpec()
                 .pathParams("id", getId())
                 .delete(EndPoints.DELETE_USER_REQUEST.getEndPoint());
 

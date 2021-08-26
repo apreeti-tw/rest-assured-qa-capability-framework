@@ -1,7 +1,12 @@
-package pojo;
+package threadlocals;
 
-public final class DataManager {
-    private DataManager(){}
+import pojo.User;
+
+import java.util.Map;
+
+public final class UserManager {
+
+    private UserManager(){}
 
     private static ThreadLocal<String> idThreadLocal = new ThreadLocal<>();
 
@@ -15,5 +20,9 @@ public final class DataManager {
 
     public static void unload(){
         idThreadLocal.remove();
+    }
+
+    public static User getUser(Map<String, String> user){
+        return User.builder().name(user.get("name")).job(user.get("job")).build();
     }
 }
