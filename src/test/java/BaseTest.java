@@ -20,7 +20,7 @@ public class BaseTest {
 
     @BeforeMethod(dependsOnGroups = {"delete_user_after"})
     protected void setup() throws IOException {
-        setRequestSpec(RequestSpecBuilder.getRequestSpec());
+        //setRequestSpec(RequestSpecBuilder.getRequestSpec());
     }
 
     @AfterMethod(dependsOnGroups = {"delete_user_after"})
@@ -31,7 +31,7 @@ public class BaseTest {
 
     @BeforeMethod(dependsOnGroups = {"add_user_before"})
     protected void addUserBeforeTest() throws IOException {
-        setRequestSpec(RequestSpecBuilder.getRequestSpec());
+       // setRequestSpec(RequestSpecBuilder.getRequestSpec());
 
         Response response = getRequestSpec()
                 .body(JSONToObjectMapperUtils.getObjectFromJSON(FilePaths.getUsersJsonFilePath(), User.class))
