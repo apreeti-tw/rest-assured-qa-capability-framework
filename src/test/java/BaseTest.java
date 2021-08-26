@@ -1,11 +1,13 @@
+import constants.FilePaths;
 import enums.EndPoints;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import pojo.User;
 import specifications.RequestSpecBuilder;
+import utils.HttpMethodUtils;
+import utils.JSONToObjectMapperUtils;
 
-import java.io.File;
 import java.io.IOException;
 
 import static threadlocals.SpecManager.getRequestSpec;
@@ -22,9 +24,7 @@ public class BaseTest {
 
     @AfterMethod(dependsOnGroups = {"delete_user_after"})
     public void deleteUserAfterTest() {
-        getRequestSpec().pathParams("id", getId())
-                .delete(EndPoints.DELETE_USER_REQUEST.getEndPoint())
-                .then().assertThat().statusCode(204);
+        HttpMethodUtils.delete(getId()).then().assertThat().statusCode(204);
         unload();
     }
 
@@ -33,8 +33,9 @@ public class BaseTest {
         setRequestSpec(RequestSpecBuilder.getRequestSpec());
 
         Response response = getRequestSpec()
-                .body(new File(System.getProperty("user.dir")+"/src/main/resources/UserDetails.json"))
+                .body(JSONToObjectMapperUtils.getObjectFromJSON(FilePaths.getUsersJsonFilePath(), User.class))
                 .post(EndPoints.POST_USER_REQUEST.getEndPoint());
+
         setId(response.jsonPath().get("id"));
     }
 }
