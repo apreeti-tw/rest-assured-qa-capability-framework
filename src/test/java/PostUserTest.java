@@ -26,8 +26,9 @@ public class PostUserTest extends BaseTest{
 
     @Test (groups = {"add_user_before"})
     public void testDeleteUser() {
-        Response response = HttpMethodUtils.delete(getId());
-
-        Assert.assertEquals(response.getStatusCode(), 204);
+        HttpMethodUtils.delete(getId())
+                .then()
+                .assertThat()
+                .statusCode(204);
     }
 }

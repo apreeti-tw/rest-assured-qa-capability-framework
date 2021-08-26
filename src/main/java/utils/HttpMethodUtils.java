@@ -2,16 +2,15 @@ package utils;
 
 import enums.EndPoints;
 import io.restassured.response.Response;
-import pojo.User;
 
 import static threadlocals.SpecManager.getRequestSpec;
 
 public class HttpMethodUtils {
     private HttpMethodUtils(){}
 
-    public static Response post(User user){
+    public static Response post(Object object){
         return getRequestSpec()
-                .body(user)
+                .body(object)
                 .post(EndPoints.POST_USER_REQUEST.getEndPoint());
     }
 
