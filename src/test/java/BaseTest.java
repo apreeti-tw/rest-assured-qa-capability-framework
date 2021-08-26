@@ -1,5 +1,6 @@
 import constants.FilePaths;
 import enums.EndPoints;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
