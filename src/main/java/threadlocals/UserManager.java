@@ -1,9 +1,5 @@
 package threadlocals;
 
-import pojo.User;
-
-import java.util.Map;
-
 public final class UserManager {
 
     private UserManager(){}
@@ -20,9 +16,5 @@ public final class UserManager {
 
     public static void unload(){
         idThreadLocal.remove();
-    }
-
-    public static User getUser(Map<String, String> user){
-        return User.builder().name(user.get("name")).job(user.get("job")).build();
     }
 }

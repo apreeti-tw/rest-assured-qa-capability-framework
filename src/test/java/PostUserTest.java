@@ -9,13 +9,14 @@ import java.util.Map;
 
 import static threadlocals.UserManager.getId;
 import static threadlocals.UserManager.setId;
+import static utils.ObjectMapperUtils.getUser;
 
 
 public class PostUserTest extends BaseTest{
 
     @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class, groups = {"delete_user_after"})
     public void testPostUser(Map<String,String> user) {
-        Response response = HttpMethodUtils.post(UserManager.getUser(user));
+        Response response = HttpMethodUtils.post(getUser(user));
 
         Assert.assertEquals(response.jsonPath().get("name"), user.get("name"));
         Assert.assertEquals(response.jsonPath().get("job"), user.get("job"));
