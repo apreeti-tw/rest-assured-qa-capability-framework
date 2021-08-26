@@ -1,33 +1,33 @@
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import threadlocals.UserManager;
 import utils.DataProviderUtils;
-import utils.HttpMethodUtils;
 
 import java.util.Map;
 
+import static org.testng.Assert.assertEquals;
 import static threadlocals.UserManager.getId;
 import static threadlocals.UserManager.setId;
+import static utils.HttpMethodUtils.delete;
+import static utils.HttpMethodUtils.post;
 import static utils.ObjectMapperUtils.getUser;
 
 
-public class PostUserTest extends BaseTest{
+public class UserTests extends BaseTest{
 
     @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class, groups = {"delete_user_after"})
     public void testPostUser(Map<String,String> user) {
-        Response response = HttpMethodUtils.post(getUser(user));
+        Response response = post(getUser(user));
 
-        Assert.assertEquals(response.jsonPath().get("name"), user.get("name"));
-        Assert.assertEquals(response.jsonPath().get("job"), user.get("job"));
-        Assert.assertEquals(response.getStatusCode(), Integer.parseInt(user.get("expected")));
+        assertEquals(response.jsonPath().get("name"), user.get("name"));
+        assertEquals(response.jsonPath().get("job"), user.get("job"));
+        assertEquals(response.getStatusCode(), Integer.parseInt(user.get("expected")));
 
         setId(response.jsonPath().get("id"));
     }
 
     @Test (groups = {"add_user_before"})
     public void testDeleteUser() {
-        HttpMethodUtils.delete(getId())
+        delete(getId())
                 .then()
                 .assertThat()
                 .statusCode(204);
