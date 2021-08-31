@@ -18,4 +18,14 @@ public final class DataProviderUtils {
                 .filter(val -> val.get("testname").equalsIgnoreCase(method.getName()))
                 .toArray();
     }
+
+    @DataProvider(name = "AuthContainer")
+    public Object[] getAuthData (Method method) throws IOException {
+        List<Map<String,String>> listOfData = ExcelUtils.getTestData("AuthData");
+
+        return listOfData
+                .parallelStream()
+                .filter(val -> val.get("testname").equalsIgnoreCase(method.getName()))
+                .toArray();
+    }
 }
