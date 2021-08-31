@@ -1,3 +1,5 @@
+package base;
+
 import constants.FilePaths;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
@@ -15,10 +17,10 @@ import static utils.HttpMethodUtils.post;
 import static utils.ObjectMapperUtils.getObjectFromJSON;
 
 
-public class BaseTest {
+public class UserBaseTest {
 
     @BeforeMethod(dependsOnGroups = {"delete_user_after"})
-    protected void setup() throws IOException {
+    protected void setup() {
         setRequestSpec(RequestSpecBuilder.getRequestSpec());
     }
 

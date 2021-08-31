@@ -1,3 +1,4 @@
+import base.UserBaseTest;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import utils.DataProviderUtils;
@@ -12,7 +13,7 @@ import static utils.HttpMethodUtils.post;
 import static utils.ObjectMapperUtils.getUser;
 
 
-public class UserTests extends BaseTest{
+public class UserTests extends UserBaseTest {
 
     @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class, groups = {"delete_user_after"})
     public void testPostUser(Map<String,String> user) {
