@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import specifications.RequestSpecBuilder;
 import utils.AuthorizationUtils;
 
-import java.util.Arrays;
 import java.util.Map;
 
 public class AuthBaseTest {
@@ -13,13 +12,10 @@ public class AuthBaseTest {
 
     @BeforeMethod
     public void setTestLevelRequestSpec(Object[] params){
-        Arrays.stream(params).forEach(obj -> {
-            Map<String, String> paramMap = (Map<String, String>) obj;
-            if (paramMap.get("authRequired").equalsIgnoreCase("Y")) {
-                if (paramMap.get("authType").equalsIgnoreCase("oauth2CC")) {
-                    newRequestSpec = newRequestSpec.auth().oauth2(AuthorizationUtils.getAuthToken(paramMap.get("authParams").split(";")));
-                }
+        if (((Map<String,String>) params[0]).get("authRequired").equalsIgnoreCase("Y")) {
+            if (((Map<String,String>) params[0]).get("authType").equalsIgnoreCase("oauth2CC")) {
+                newRequestSpec = newRequestSpec.auth().oauth2(AuthorizationUtils.getAuthToken(((Map<String,String>) params[0]).get("authParams").split(";")));
             }
-        });
+        }
     }
 }
