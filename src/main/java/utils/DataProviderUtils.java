@@ -19,9 +19,9 @@ public final class DataProviderUtils {
                 .toArray();
     }
 
-    @DataProvider(name = "AuthContainer")
-    public Object[] getAuthData (Method method) throws IOException {
-        List<Map<String,String>> listOfData = ExcelUtils.getTestData("AuthData");
+    @DataProvider(name = "BarnContainer")
+    public Object[] getBarnData (Method method) throws IOException {
+        List<Map<String,String>> listOfData = ExcelUtils.getTestData("BarnData");
 
         return listOfData
                 .parallelStream()

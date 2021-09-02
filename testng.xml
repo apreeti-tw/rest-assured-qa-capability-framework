@@ -2,14 +2,14 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="API Testing" parallel="methods">
-    <test name="User CRUD Tests">
+    <!--<test name="User CRUD Tests">
         <classes>
             <class name="UserTests"></class>
         </classes>
-    </test>
-    <test name="Auth Tests">
+    </test>-->
+    <test name="Barn Farm Tests">
         <classes>
-            <class name="AuthorizationTests"></class>
+            <class name="BarnFarmTests"></class>
         </classes>
     </test>
 </suite>

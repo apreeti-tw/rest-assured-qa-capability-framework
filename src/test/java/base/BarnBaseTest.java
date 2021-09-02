@@ -7,12 +7,12 @@ import utils.AuthorizationUtils;
 
 import java.util.Map;
 
-public class AuthBaseTest {
+public class BarnBaseTest {
     protected RequestSpecification newRequestSpec = RequestSpecBuilder.getRequestSpec();
 
     @BeforeMethod
     public void setTestLevelRequestSpec(Object[] params){
-        if (((Map<String,String>) params[0]).get("authRequired").equalsIgnoreCase("Y")) {
+        if (((Map<String,String>) params[0]).get("setAuth").equalsIgnoreCase("Y")) {
             if (((Map<String,String>) params[0]).get("authType").equalsIgnoreCase("oauth2CC")) {
                 newRequestSpec = newRequestSpec.auth().oauth2(AuthorizationUtils.getAuthToken(((Map<String,String>) params[0]).get("authParams").split(";")));
             }
