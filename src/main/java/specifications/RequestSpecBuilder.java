@@ -14,6 +14,11 @@ public class RequestSpecBuilder {
         reqSpec = getBaseRequestSpec();
     }
 
+    public RequestSpecBuilder setBaseUri(String base_url) {
+        reqSpec = reqSpec.baseUri(base_url);
+        return this;
+    }
+
     public RequestSpecBuilder getAuth(Map<String, String> parameters){
         if (parameters.get("setAuth").equalsIgnoreCase("Y")) {
             if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
