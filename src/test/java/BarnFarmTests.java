@@ -7,11 +7,13 @@ import utils.DataProviderUtils;
 
 import java.util.Map;
 
+import static enums.EndPoints.UNLOCK_BARN_REQUEST;
+
 public class BarnFarmTests extends BarnBaseTest {
 
     @Test(dataProvider = "BarnContainer", dataProviderClass = DataProviderUtils.class)
     public void testBarnUnlockWithClientCredentials(Map<String,String> barnData) {
-        Response response = newRequestSpec.post("/api/{user_id}/barn-unlock").then().extract().response();
+        Response response = newRequestSpec.post(UNLOCK_BARN_REQUEST.getEndPoint());
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response.jsonPath().getString("message"), Messages.getBarnUnlockMessage());
     }
