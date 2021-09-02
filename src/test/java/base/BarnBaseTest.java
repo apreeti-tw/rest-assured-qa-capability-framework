@@ -17,5 +17,8 @@ public class BarnBaseTest {
                 newRequestSpec = newRequestSpec.auth().oauth2(AuthorizationUtils.getAuthToken(((Map<String,String>) params[0]).get("authParams").split(";")));
             }
         }
+        if (((Map<String,String>) params[0]).get("setPathParams").equalsIgnoreCase("Y")) {
+           newRequestSpec = RequestSpecBuilder.getPathParams(newRequestSpec,((Map<String,String>) params[0]).get("pathParams").split(";"));
+        }
     }
 }

@@ -18,4 +18,11 @@ public class RequestSpecBuilder {
     public static RequestSpecification getRequestSpec() {
         return baseRequestSpecification;
     }
+
+    public static RequestSpecification getPathParams(RequestSpecification reqSpec, String[] pathParams) {
+        for (String param:pathParams) {
+            reqSpec = reqSpec.pathParams(param.split(":")[0], param.split(":")[1]);
+        }
+        return reqSpec;
+    }
 }
