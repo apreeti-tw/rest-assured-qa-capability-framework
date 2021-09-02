@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pojo.User;
-import specifications.RequestSpecBuilder;
+import specifications.RequestSpecBuilder_New;
 import threadlocals.SpecManager;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class UserBaseTest {
 
     @BeforeMethod(dependsOnGroups = {"delete_user_after"})
     protected void setup() {
-        setRequestSpec(RequestSpecBuilder.getRequestSpec());
+        setRequestSpec(RequestSpecBuilder_New.getRequestSpec());
     }
 
     @AfterMethod(dependsOnGroups = {"delete_user_after"})
@@ -32,7 +32,7 @@ public class UserBaseTest {
 
     @BeforeMethod(dependsOnGroups = {"add_user_before"})
     protected void addUserBeforeTest() throws IOException {
-        setRequestSpec(RequestSpecBuilder.getRequestSpec());
+        setRequestSpec(RequestSpecBuilder_New.getRequestSpec());
         Response response = post(getObjectFromJSON(FilePaths.getUsersJsonFilePath(), User.class));
         setId(response.jsonPath().get("id"));
     }
