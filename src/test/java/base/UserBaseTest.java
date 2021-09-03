@@ -1,44 +1,15 @@
 package base;
 
-import constants.FilePaths;
-import io.restassured.response.Response;
-import org.testng.annotations.AfterMethod;
+import io.restassured.specification.RequestSpecification;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
-import pojo.User;
-import specifications.RequestSpecBuilder_New;
-import threadlocals.SpecManager;
-
-import java.io.IOException;
-
-import static threadlocals.SpecManager.setRequestSpec;
-import static threadlocals.UserManager.*;
-import static utils.HttpMethodUtils.delete;
-import static utils.HttpMethodUtils.post;
-import static utils.ObjectMapperUtils.getObjectFromJSON;
-
+import specifications.RequestSpecBuilder;
 
 public class UserBaseTest {
+    protected RequestSpecification requestSpecification;
 
-    @BeforeMethod(dependsOnGroups = {"delete_user_after"})
-    protected void setup() {
-        setRequestSpec(RequestSpecBuilder_New.getRequestSpec());
-    }
-
-    @AfterMethod(dependsOnGroups = {"delete_user_after"})
-    public void deleteUserAfterTest() {
-        delete(getId()).then().assertThat().statusCode(204);
-        unload();
-    }
-
-    @BeforeMethod(dependsOnGroups = {"add_user_before"})
-    protected void addUserBeforeTest() throws IOException {
-        setRequestSpec(RequestSpecBuilder_New.getRequestSpec());
-        Response response = post(getObjectFromJSON(FilePaths.getUsersJsonFilePath(), User.class));
-        setId(response.jsonPath().get("id"));
-    }
-
-    @AfterMethod
-    protected void tearDown(){
-        SpecManager.unload();
+    @BeforeMethod
+    public void beforeMethod(ITestContext context){
+        requestSpecification = new RequestSpecBuilder().setBaseUri("https://reqres.in").build();
     }
 }

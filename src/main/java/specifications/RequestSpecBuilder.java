@@ -1,17 +1,20 @@
 package specifications;
 
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import utils.AuthorizationUtils;
 
 import java.util.Map;
 
-import static constants.Specifications.getBaseRequestSpec;
-
 public class RequestSpecBuilder {
     public RequestSpecification reqSpec;
 
     public RequestSpecBuilder(){
-        reqSpec = getBaseRequestSpec();
+        reqSpec = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .urlEncodingEnabled(false);
     }
 
     public RequestSpecBuilder setBaseUri(String base_url) {
@@ -34,6 +37,11 @@ public class RequestSpecBuilder {
                 reqSpec = reqSpec.pathParams(param.split(":")[0], param.split(":")[1]);
             }
         }
+        return this;
+    }
+
+    public RequestSpecBuilder setBody(Object body) {
+        reqSpec = reqSpec.body(body);
         return this;
     }
 

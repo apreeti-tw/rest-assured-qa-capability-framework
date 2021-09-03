@@ -5,19 +5,18 @@ import utils.DataProviderUtils;
 
 import java.util.Map;
 
+import static enums.EndPoints.DELETE_USER_REQUEST;
+import static enums.EndPoints.POST_USER_REQUEST;
 import static org.testng.Assert.assertEquals;
-import static threadlocals.UserManager.getId;
 import static threadlocals.UserManager.setId;
-import static utils.HttpMethodUtils.delete;
-import static utils.HttpMethodUtils.post;
 import static utils.ObjectMapperUtils.getUser;
 
 
 public class UserTests extends UserBaseTest {
 
-    @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class, groups = {"delete_user_after"})
+    @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
     public void testPostUser(Map<String,String> user) {
-        Response response = post(getUser(user));
+        Response response = requestSpecification.body(getUser(user)).post(POST_USER_REQUEST.getEndPoint());
 
         assertEquals(response.jsonPath().get("name"), user.get("name"));
         assertEquals(response.jsonPath().get("job"), user.get("job"));
@@ -26,11 +25,12 @@ public class UserTests extends UserBaseTest {
         setId(response.jsonPath().get("id"));
     }
 
-    @Test (groups = {"add_user_before"})
+    @Test
     public void testDeleteUser() {
-        delete(getId())
+        requestSpecification
+                .pathParams("id", "someid")
+                .delete(DELETE_USER_REQUEST.getEndPoint())
                 .then()
-                .assertThat()
                 .statusCode(204);
     }
 }
