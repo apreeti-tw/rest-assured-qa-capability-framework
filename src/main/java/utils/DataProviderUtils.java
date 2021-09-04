@@ -1,6 +1,7 @@
 package utils;
 
 import org.testng.annotations.DataProvider;
+import org.testng.xml.XmlTest;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -20,12 +21,12 @@ public final class DataProviderUtils {
     }
 
     @DataProvider(name = "RunManager")
-    public static Object[] getRunManagerData (Method method) throws IOException {
+    public static Object[] getRunManagerData (XmlTest xmlTest) throws IOException {
         List<Map<String,String>> listOfData = ExcelUtils.getTestData("RunManager");
 
         return listOfData
                 .parallelStream()
-                .filter(val -> val.get("testname").equalsIgnoreCase(method.getName()))
+                .filter(val -> val.get("testname").equalsIgnoreCase(xmlTest.getName()))
                 .toArray();
     }
 }
