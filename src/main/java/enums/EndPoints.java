@@ -2,7 +2,7 @@ package enums;
 
 public enum EndPoints {
     POST_USER_REQUEST("/api/users"),
-    DELETE_USER_REQUEST("/api/users/{id}"),
+    DELETE_USER_REQUEST("/api/users/{user_id}"),
     UNLOCK_BARN_REQUEST("/api/{user_id}/barn-unlock");
 
     private String resource;
