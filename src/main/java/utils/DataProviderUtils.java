@@ -20,6 +20,16 @@ public final class DataProviderUtils {
                 .toArray();
     }
 
+    @DataProvider(name = "BarnContainer")
+    public Object[] getBarnData (Method method) throws IOException {
+        List<Map<String,String>> listOfData = ExcelUtils.getTestData("BarnData");
+
+        return listOfData
+                .parallelStream()
+                .filter(val -> val.get("testname").equalsIgnoreCase(method.getName()))
+                .toArray();
+    }
+
     @DataProvider(name = "RunManager")
     public static Object[] getRunManagerData (XmlTest xmlTest) throws IOException {
         List<Map<String,String>> listOfData = ExcelUtils.getTestData("RunManager");
