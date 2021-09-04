@@ -3,9 +3,10 @@ package specifications;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import utils.AuthorizationUtils;
 
 import java.util.Map;
+
+import static utils.AuthorizationUtils.getAuthToken;
 
 public class RequestSpecBuilder {
     public RequestSpecification reqSpec;
@@ -25,7 +26,7 @@ public class RequestSpecBuilder {
     public RequestSpecBuilder getAuth(Map<String, String> parameters){
         if (parameters.get("setAuth").equalsIgnoreCase("Y")) {
             if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
-                reqSpec = reqSpec.auth().oauth2(AuthorizationUtils.getAuthToken(parameters.get("authParams").split(";")));
+                reqSpec = reqSpec.auth().oauth2(getAuthToken(parameters.get("base_url"), parameters.get("authParams").split(";")));
             }
         }
         return this;

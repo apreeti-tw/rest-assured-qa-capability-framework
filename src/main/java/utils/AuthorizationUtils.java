@@ -5,8 +5,8 @@ import io.restassured.specification.RequestSpecification;
 
 public class AuthorizationUtils {
 
-    public static String getAuthToken(String[] authFormParams) {
-        RequestSpecification reqSpec = RestAssured.given().baseUri(PropertiesUtils.getProperty("base_url"));
+    public static String getAuthToken(String base_url, String[] authFormParams) {
+        RequestSpecification reqSpec = RestAssured.given().baseUri(base_url);
         for (String param:authFormParams) {
             reqSpec = reqSpec.formParam(param.split(":")[0], param.split(":")[1]);
         }
