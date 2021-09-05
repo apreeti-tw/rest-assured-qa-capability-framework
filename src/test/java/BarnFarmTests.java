@@ -11,7 +11,7 @@ import static enums.EndPoints.UNLOCK_BARN_REQUEST;
 
 public class BarnFarmTests extends BarnBaseTest {
 
-    @Test (dataProvider = "BarnContainer", dataProviderClass = DataProviderUtils.class)
+    @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
     public void testBarnUnlockWithClientCredentials(Map<String,String> barnData) {
         Response response = newRequestSpec.post(UNLOCK_BARN_REQUEST.getEndPoint());
         Assert.assertEquals(response.getStatusCode(), Integer.parseInt(barnData.get("expected")));

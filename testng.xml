@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="API Testing" parallel="tests">
+<suite name="API Testing" parallel="tests" data-provider-thread-count="2">
     <listeners>
         <listener class-name="listeners.TestListeners"></listener>
     </listeners>
-    <test name="User CRUD Tests">
+    <test name="UserCRUDTests">
         <classes>
             <class name="UserTests"></class>
         </classes>
     </test>
-    <test name="Barn Farm Tests">
+    <test name="BarnFarmTests">
         <classes>
             <class name="BarnFarmTests"></class>
         </classes>
