@@ -1,5 +1,7 @@
 package base;
 
+import builders.RequestSpecBuilder;
+import builders.UserBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.ITestContext;
@@ -7,7 +9,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.xml.XmlTest;
-import builders.RequestSpecBuilder;
 
 import java.io.IOException;
 import java.util.Map;
@@ -15,7 +16,6 @@ import java.util.Map;
 import static enums.EndPoints.DELETE_USER_REQUEST;
 import static enums.EndPoints.POST_USER_REQUEST;
 import static utils.DataProviderUtils.getRunManagerData;
-import static utils.ObjectMapperUtils.getUser;
 
 public class UserBaseTest {
     protected RequestSpecification requestSpecification;
@@ -32,7 +32,7 @@ public class UserBaseTest {
         requestSpecification = new RequestSpecBuilder().setBaseUri(setupData.get("base_url")).build();
 
         if(user.get("createUser").equalsIgnoreCase("Y")){
-            Response response = requestSpecification.body(getUser(user)).post(POST_USER_REQUEST.getEndPoint());
+            Response response = requestSpecification.body(new UserBuilder(user).setUserData()).post(POST_USER_REQUEST.getEndPoint());
             context.setAttribute("user_id", response.jsonPath().get("id"));
         }
     }
