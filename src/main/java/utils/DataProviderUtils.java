@@ -14,7 +14,7 @@ import static utils.PropertiesUtils.getProperty;
 public final class DataProviderUtils {
 
     @DataProvider(name = "DataContainer")
-    public Object[] getData (Method method, ITestContext context) throws IOException {
+    public static Object[] getData (Method method, ITestContext context) throws IOException {
         List<Map<String,String>> listOfData = ExcelUtils.getTestData(getProperty((String) context.getAttribute("testName")));
 
         return listOfData
@@ -30,6 +30,15 @@ public final class DataProviderUtils {
         return listOfData
                 .parallelStream()
                 .filter(val -> val.get("testname").equalsIgnoreCase(xmlTest.getName()))
+                .toArray();
+    }
+
+    public static Object[] getData (String sheetName, String methodName) throws IOException {
+        List<Map<String,String>> listOfData = ExcelUtils.getTestData(sheetName);
+
+        return listOfData
+                .parallelStream()
+                .filter(val -> val.get("testname").equalsIgnoreCase(methodName))
                 .toArray();
     }
 }
