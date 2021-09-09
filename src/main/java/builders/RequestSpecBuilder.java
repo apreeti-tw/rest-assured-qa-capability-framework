@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import java.util.Map;
 
 import static utils.AuthorizationUtils.getAuthToken;
+import static utils.EncryptionUtils.decodeBase64;
 
 public class RequestSpecBuilder {
     public RequestSpecification reqSpec;
@@ -44,5 +45,12 @@ public class RequestSpecBuilder {
 
     public RequestSpecification build(){
         return reqSpec;
+    }
+
+    public RequestSpecBuilder setHeaders(String headers) {
+        for (String header: headers.split(";")) {
+            reqSpec = reqSpec.header(header.split(":")[0], decodeBase64(header.split(":")[1]));
+        }
+        return this;
     }
 }

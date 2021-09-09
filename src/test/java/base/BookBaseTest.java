@@ -25,6 +25,7 @@ public class BookBaseTest {
         Map<String, String> params = (Map<String, String>) getRunManagerData(xmlTest)[0];
         requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
+                .setHeaders(params.get("headers"))
                 .build();
     }
 }
