@@ -24,19 +24,15 @@ public class RequestSpecBuilder {
     }
 
     public RequestSpecBuilder getAuth(Map<String, String> parameters){
-        if (parameters.get("setAuth").equalsIgnoreCase("Y")) {
-            if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
-                reqSpec = reqSpec.auth().oauth2(getAuthToken(parameters.get("base_url"), parameters.get("authParams").split(";")));
-            }
+        if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
+            reqSpec = reqSpec.auth().oauth2(getAuthToken(parameters.get("base_url"), parameters.get("authParams").split(";")));
         }
         return this;
     }
 
     public RequestSpecBuilder getPathParams(Map<String, String> parameters) {
-        if (parameters.get("setPathParams").equalsIgnoreCase("Y")) {
-            for (String param:parameters.get("pathParams").split(";")) {
-                reqSpec = reqSpec.pathParams(param.split(":")[0], param.split(":")[1]);
-            }
+        for (String param:parameters.get("pathParams").split(";")) {
+            reqSpec = reqSpec.pathParams(param.split(":")[0], param.split(":")[1]);
         }
         return this;
     }
