@@ -5,7 +5,7 @@
     <listeners>
         <listener class-name="listeners.TestListeners"></listener>
     </listeners>
-    <!--<test name="UserCRUDTests">
+    <test name="UserCRUDTests">
         <classes>
             <class name="UserTests"></class>
         </classes>
@@ -14,7 +14,7 @@
         <classes>
             <class name="BarnFarmTests"></class>
         </classes>
-    </test>-->
+    </test>
     <test name="BookTests">
         <classes>
             <class name="BookTests"></class>

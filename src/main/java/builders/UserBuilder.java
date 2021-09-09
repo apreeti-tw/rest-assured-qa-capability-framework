@@ -2,7 +2,6 @@ package builders;
 
 import pojo.User;
 
-import java.io.IOException;
 import java.util.Map;
 
 public final class UserBuilder {
@@ -12,7 +11,7 @@ public final class UserBuilder {
         this.user = user;
     }
 
-    public User setUserData() throws IOException {
+    public User setUserData() {
         return User.builder().name(user.get("name")).job(user.get("job")).build();
     }
 }
