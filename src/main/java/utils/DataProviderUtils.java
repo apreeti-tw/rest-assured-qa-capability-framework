@@ -15,30 +15,23 @@ public final class DataProviderUtils {
 
     @DataProvider(name = "DataContainer")
     public static Object[] getData (Method method, ITestContext context) throws IOException {
-        List<Map<String,String>> listOfData = ExcelUtils.getTestData(getProperty((String) context.getAttribute("testName")));
-
-        return listOfData
-                .parallelStream()
-                .filter(val -> val.get("testname").equalsIgnoreCase(method.getName()))
-                .toArray();
+        return filterTestData(ExcelUtils.getTestData(getProperty((String) context.getAttribute("testName"))), method.getName());
     }
 
     @DataProvider(name = "RunManager")
     public static Object[] getRunManagerData (XmlTest xmlTest) throws IOException {
-        List<Map<String,String>> listOfData = ExcelUtils.getTestData("RunManager");
-
-        return listOfData
-                .parallelStream()
-                .filter(val -> val.get("testname").equalsIgnoreCase(xmlTest.getName()))
-                .toArray();
+        return filterTestData(ExcelUtils.getTestData("RunManager"), xmlTest.getName());
     }
 
+    @DataProvider(name = "ComplexDataContainer")
     public static Object[] getData (String sheetName, String methodName) throws IOException {
-        List<Map<String,String>> listOfData = ExcelUtils.getTestData(sheetName);
+        return filterTestData(ExcelUtils.getTestData(sheetName), methodName);
+    }
 
+    public static Object[] filterTestData(List<Map<String,String>> listOfData, String filter){
         return listOfData
                 .parallelStream()
-                .filter(val -> val.get("testname").equalsIgnoreCase(methodName))
+                .filter(val -> val.get("testname").equalsIgnoreCase(filter))
                 .toArray();
     }
 }
