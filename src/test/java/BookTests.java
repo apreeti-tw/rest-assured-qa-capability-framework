@@ -1,6 +1,6 @@
 import base.BookBaseTest;
 import org.testng.annotations.Test;
-import specifications.BookBuilder;
+import builders.BookBuilder;
 import utils.DataProviderUtils;
 
 import java.io.IOException;

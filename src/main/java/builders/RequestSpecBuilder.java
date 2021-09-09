@@ -1,4 +1,4 @@
-package specifications;
+package builders;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

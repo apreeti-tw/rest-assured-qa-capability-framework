@@ -1,4 +1,4 @@
-package specifications;
+package builders;
 
 import pojo.Book;
 import pojo.Isbn;
