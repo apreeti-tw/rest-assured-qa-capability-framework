@@ -38,8 +38,6 @@ public class BookBaseTest {
                 .setBaseUri(params.get("base_url"))
                 .getPathParams(params)
                 .build()
-                .delete(DELETE_BOOK_LIST.getEndPoint())
-                .then()
-                .statusCode(204);
+                .delete(DELETE_BOOK_LIST.getEndPoint());
     }
 }

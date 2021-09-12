@@ -14,8 +14,6 @@ public class BookTests extends BookBaseTest {
     @Test(dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
     public void testAddListOfBooks(Map<String,String> book) throws IOException {
         Response response = requestSpecification
-                .log()
-                .all()
                 .body(new BookBuilder(book).setBookData())
                 .post(ADD_BOOKS_LIST.getEndPoint());
 
