@@ -3,11 +3,15 @@ package reports;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import constants.FilePaths;
+import enums.Constants;
+import utils.PropertiesUtils;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
+import static enums.Constants.AUTO_OPEN_REPORT_YES;
 
 public final class ExtentReportNG {
     private ExtentReportNG(){}
@@ -19,7 +23,7 @@ public final class ExtentReportNG {
             extentReports = new ExtentReports();
             FilePaths.createFile();
             ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter(FilePaths.getExtentReportFilePath());
-            extentSparkReporter.config().setReportName("Orange HRM Test Demo");
+            extentSparkReporter.config().setReportName("RestAssured Test Demo");
             extentSparkReporter.config().setDocumentTitle("Test Results");
             extentReports.attachReporter(extentSparkReporter);
         }
@@ -30,7 +34,8 @@ public final class ExtentReportNG {
             ExtentReportManager.unload();
             extentReports.flush();
         }
-        Desktop.getDesktop().browse(new File(FilePaths.getExtentReportFilePath()).toURI());
+        if(PropertiesUtils.getProperty("autoOpenReports").equalsIgnoreCase(AUTO_OPEN_REPORT_YES.name()))
+            Desktop.getDesktop().browse(new File(FilePaths.getExtentReportFilePath()).toURI());
     }
 
     public static void createTestReport(String testName){
