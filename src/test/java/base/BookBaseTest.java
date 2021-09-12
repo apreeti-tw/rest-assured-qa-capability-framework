@@ -18,13 +18,14 @@ public class BookBaseTest {
     protected RequestSpecification requestSpecification = null;
 
     @BeforeTest
-    public void beforeTest(ITestContext context, XmlTest xmlTest){
+    public void beforeTest(ITestContext context, XmlTest xmlTest) throws IOException {
         context.setAttribute("testName", xmlTest.getName());
+        context.setAttribute("runManager", getRunManagerData(xmlTest)[0]);
     }
 
     @BeforeMethod
-    public void setTestLevelRequestSpec(XmlTest xmlTest) throws IOException {
-        Map<String, String> params = (Map<String, String>) getRunManagerData(xmlTest)[0];
+    public void setTestLevelRequestSpec(ITestContext context) {
+        Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
         requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
                 .setHeaders(params.get("headers"))
@@ -32,11 +33,11 @@ public class BookBaseTest {
     }
 
     @AfterMethod
-    public void deleteBookFromUser(Object[] bookData, XmlTest xmlTest) throws IOException {
-        Map<String, String> params = (Map<String, String>) getRunManagerData(xmlTest)[0];
+    public void deleteBookFromUser(ITestContext context) {
+        Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
         new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
-                .getPathParams(params)
+                .setPathParams(params)
                 .build()
                 .delete(DELETE_BOOK_LIST.getEndPoint());
     }

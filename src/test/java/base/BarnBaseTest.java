@@ -25,8 +25,8 @@ public class BarnBaseTest {
         Map<String, String> params = (Map<String, String>) getRunManagerData(xmlTest)[0];
         newRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
-                .getAuth(params)
-                .getPathParams(params)
+                .setAuth(params)
+                .setPathParams(params)
                 .build();
     }
 }

@@ -24,14 +24,14 @@ public class RequestSpecBuilder {
         return this;
     }
 
-    public RequestSpecBuilder getAuth(Map<String, String> parameters){
+    public RequestSpecBuilder setAuth(Map<String, String> parameters){
         if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
             reqSpec = reqSpec.auth().oauth2(getAuthToken(parameters.get("base_url"), parameters.get("authParams").split(";")));
         }
         return this;
     }
 
-    public RequestSpecBuilder getPathParams(Map<String, String> parameters) {
+    public RequestSpecBuilder setPathParams(Map<String, String> parameters) {
         for (String param:parameters.get("pathParams").split(";")) {
             reqSpec = reqSpec.pathParams(param.split(":")[0], param.split(":")[1]);
         }
