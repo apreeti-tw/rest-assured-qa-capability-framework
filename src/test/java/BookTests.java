@@ -17,9 +17,7 @@ public class BookTests extends BookBaseTest {
                 .log()
                 .all()
                 .body(new BookBuilder(book).setBookData())
-                .post(ADD_BOOKS_LIST.getEndPoint())
-                        .then().log().all()
-                        .extract().response();
+                .post(ADD_BOOKS_LIST.getEndPoint());
 
         Assert.assertEquals(response.statusCode(), Integer.parseInt(book.get("expected")));
         Assert.assertEquals(response.jsonPath().getInt("books.size()"), 4);
