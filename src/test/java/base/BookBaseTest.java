@@ -37,7 +37,7 @@ public class BookBaseTest {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
         new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
-                .setPathParams(params)
+                .setQueryParams(params.get("queryParams"))
                 .build()
                 .delete(DELETE_BOOK_LIST.getEndPoint());
     }

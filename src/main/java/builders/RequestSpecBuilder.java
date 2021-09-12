@@ -53,4 +53,11 @@ public class RequestSpecBuilder {
         }
         return this;
     }
+
+    public RequestSpecBuilder setQueryParams(String queryParams) {
+        for (String queryParam: queryParams.split(";")) {
+            reqSpec = reqSpec.queryParams(queryParam.split(":")[0], queryParam.split(":")[1]);
+        }
+        return this;
+    }
 }
