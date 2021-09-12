@@ -1,11 +1,8 @@
 import base.BookBaseTest;
-import io.restassured.response.Response;
+import builders.BookBuilder;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import builders.BookBuilder;
 import pojo.Book;
-import pojo.Books;
-import pojo.Isbn;
 import utils.DataProviderUtils;
 
 import java.io.IOException;
