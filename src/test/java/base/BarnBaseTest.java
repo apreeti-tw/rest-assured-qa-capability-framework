@@ -16,13 +16,14 @@ public class BarnBaseTest {
     protected RequestSpecification newRequestSpec = null;
 
     @BeforeTest
-    public void beforeTest(ITestContext context, XmlTest xmlTest){
+    public void beforeTest(ITestContext context, XmlTest xmlTest) throws IOException {
         context.setAttribute("testName", xmlTest.getName());
+        context.setAttribute("runManager", getRunManagerData(xmlTest)[0]);
     }
 
     @BeforeMethod
-    public void setTestLevelRequestSpec(XmlTest xmlTest) throws IOException {
-        Map<String, String> params = (Map<String, String>) getRunManagerData(xmlTest)[0];
+    public void setTestLevelRequestSpec(ITestContext context) {
+        Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
         newRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
                 .setAuth(params)

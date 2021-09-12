@@ -20,7 +20,7 @@ public final class DataProviderUtils {
 
     @DataProvider(name = "RunManager")
     public static Object[] getRunManagerData (XmlTest xmlTest) throws IOException {
-        return filterTestData(ExcelUtils.getTestData("RunManager"), xmlTest.getName());
+        return filterTestData(ExcelUtils.getTestData(getProperty("RunManager")), xmlTest.getName());
     }
 
     @DataProvider(name = "ComplexDataContainer")
