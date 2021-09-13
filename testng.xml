@@ -6,10 +6,20 @@
         <listener class-name="listeners.TestListeners"></listener>
     </listeners>
 
-
+    <test name="UserCRUDTests">
+        <classes>
+            <class name="UserTests"></class>
+        </classes>
+    </test>
+    <test name="BarnFarmTests">
+        <classes>
+            <class name="BarnFarmTests"></class>
+        </classes>
+    </test>
     <test name="BookTests">
         <classes>
             <class name="BookTests"></class>
         </classes>
     </test>
+
 </suite>
