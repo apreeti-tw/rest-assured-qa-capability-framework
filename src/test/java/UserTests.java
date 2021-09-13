@@ -5,7 +5,6 @@ import org.testng.ITestContext;
 import org.testng.annotations.Test;
 import utils.DataProviderUtils;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static enums.EndPoints.DELETE_USER_REQUEST;
@@ -16,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 public class UserTests extends UserBaseTest {
 
     @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
-    public void testPostUser(Map<String,String> user, ITestContext context) throws IOException {
+    public void testPostUser(Map<String,String> user, ITestContext context) {
         Response response = requestSpecification.body(new UserBuilder(user).setUserData()).post(POST_USER_REQUEST.getEndPoint());
 
         assertEquals(response.jsonPath().get("name"), user.get("name"));

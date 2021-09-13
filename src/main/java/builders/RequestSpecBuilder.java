@@ -6,8 +6,7 @@ import io.restassured.specification.RequestSpecification;
 
 import java.util.Map;
 
-import static utils.AuthorizationUtils.getAuthToken;
-import static utils.EncryptionUtils.decodeBase64;
+import static factory.AuthenticationFactory.executeAuth;
 
 public class RequestSpecBuilder {
     public RequestSpecification reqSpec;
@@ -25,13 +24,7 @@ public class RequestSpecBuilder {
     }
 
     public RequestSpecBuilder setAuth(Map<String, String> parameters){
-        if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
-            reqSpec = reqSpec.auth().oauth2(getAuthToken(parameters.get("base_url"), parameters.get("authParams").split(";")));
-        }
-        if (parameters.get("authType").equalsIgnoreCase("basic")) {
-            String[] credentials = parameters.get("authParams").split(":");
-            reqSpec = reqSpec.auth().preemptive().basic(decodeBase64(credentials[0]), decodeBase64(credentials[1]));
-        }
+        reqSpec = executeAuth(reqSpec, parameters);
         return this;
     }
 
