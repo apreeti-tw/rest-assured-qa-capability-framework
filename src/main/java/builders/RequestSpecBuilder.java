@@ -4,6 +4,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.Map;
+
+import static factory.AuthenticationFactory.executeAuth;
+
 public class RequestSpecBuilder {
     public RequestSpecification reqSpec;
 
@@ -16,6 +20,18 @@ public class RequestSpecBuilder {
 
     public RequestSpecBuilder setBaseUri(String base_url) {
         reqSpec = reqSpec.baseUri(base_url);
+        return this;
+    }
+
+    public RequestSpecBuilder setAuth(Map<String, String> parameters){
+        reqSpec = executeAuth(reqSpec, parameters);
+        return this;
+    }
+
+    public RequestSpecBuilder setPathParams(Map<String, String> parameters) {
+        for (String param:parameters.get("pathParams").split(";")) {
+            reqSpec = reqSpec.pathParams(param.split(":")[0], param.split(":")[1]);
+        }
         return this;
     }
 

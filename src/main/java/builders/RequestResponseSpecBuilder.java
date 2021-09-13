@@ -4,15 +4,11 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 
 public final class RequestResponseSpecBuilder {
-    private RequestSpecBuilder requestSpecBuilder;
+    private static RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder()
+            .setUrlEncodingEnabled(false)
+            .setContentType(ContentType.JSON);
 
-    public RequestResponseSpecBuilder(){
-        requestSpecBuilder = new RequestSpecBuilder()
-                .setUrlEncodingEnabled(false)
-                .setContentType(ContentType.JSON);
-    }
-
-    public RequestSpecBuilder get(){
+    public static RequestSpecBuilder get(){
         return requestSpecBuilder;
     }
 }
