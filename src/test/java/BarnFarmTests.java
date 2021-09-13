@@ -1,5 +1,6 @@
 import base.BarnBaseTest;
 import constants.Messages;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,7 +14,8 @@ public class BarnFarmTests extends BarnBaseTest {
 
     @Test (dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
     public void testBarnUnlockWithClientCredentials(Map<String,String> barnData) {
-        Response response = newRequestSpec.post(UNLOCK_BARN_REQUEST.getEndPoint());
+        Response response = RestAssured.given(requestSpecification).post(UNLOCK_BARN_REQUEST.getEndPoint());
+
         Assert.assertEquals(response.getStatusCode(), Integer.parseInt(barnData.get("expected")));
         Assert.assertEquals(response.jsonPath().getString("message"), Messages.getBarnUnlockMessage());
     }
