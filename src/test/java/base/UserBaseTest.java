@@ -21,13 +21,14 @@ public class UserBaseTest {
     protected RequestSpecification requestSpecification;
 
     @BeforeTest
-    public void beforeTest(ITestContext context, XmlTest xmlTest){
+    public void beforeTest(ITestContext context, XmlTest xmlTest) throws IOException {
         context.setAttribute("testName", xmlTest.getName());
+        context.setAttribute("runManager", getRunManagerData(xmlTest)[0]);
     }
 
     @BeforeMethod
-    public void beforeMethod(XmlTest xmlTest, ITestContext context, Object[] userData) throws IOException {
-        Map<String, String> setupData = (Map<String, String>) getRunManagerData(xmlTest)[0];
+    public void beforeMethod(ITestContext context, Object[] userData){
+        Map<String, String> setupData = (Map<String, String>) context.getAttribute("runManager");
         Map<String, String> user = (Map<String, String>) userData[0];
         requestSpecification = new RequestSpecBuilder().setBaseUri(setupData.get("base_url")).build();
 
