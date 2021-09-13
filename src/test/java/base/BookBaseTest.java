@@ -1,19 +1,17 @@
 package base;
 
-import builders.RequestResponseSpecBuilder;
-import builders.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.xml.XmlTest;
+import builders.RequestSpecBuilder;
 
 import java.io.IOException;
 import java.util.Map;
 
 import static enums.EndPoints.DELETE_BOOK_LIST;
-import static factory.AuthenticationFactory.executeAuth;
 import static utils.DataProviderUtils.getRunManagerData;
 
 public class BookBaseTest {
@@ -28,11 +26,9 @@ public class BookBaseTest {
     @BeforeMethod
     public void setTestLevelRequestSpec(ITestContext context) {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
-
-        requestSpecification = new RequestResponseSpecBuilder().get()
+        requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
-                .setAuth(executeAuth(params))
-                .setAuth(executeAuth(params))
+                .setAuth(params)
                 .build();
     }
 

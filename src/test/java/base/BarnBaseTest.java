@@ -1,20 +1,19 @@
 package base;
 
-import builders.RequestResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.xml.XmlTest;
+import builders.RequestSpecBuilder;
 
 import java.io.IOException;
 import java.util.Map;
 
-import static utils.AuthorizationUtils.getAuthToken;
 import static utils.DataProviderUtils.getRunManagerData;
 
 public class BarnBaseTest {
-    protected RequestSpecification requestSpecification = null;
+    protected RequestSpecification newRequestSpec = null;
 
     @BeforeTest
     public void beforeTest(ITestContext context, XmlTest xmlTest) throws IOException {
@@ -25,11 +24,10 @@ public class BarnBaseTest {
     @BeforeMethod
     public void setTestLevelRequestSpec(ITestContext context) {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
-        requestSpecification = new RequestResponseSpecBuilder().get()
+        newRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
-                .addPathParam("user_id", params.get("pathParams"))
-                .build()
-                .auth()
-                .oauth2(getAuthToken(params.get("base_url"), params.get("authParams").split(";")));
+                .setAuth(params)
+                .setPathParams(params)
+                .build();
     }
 }
