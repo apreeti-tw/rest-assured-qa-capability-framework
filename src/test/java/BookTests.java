@@ -34,6 +34,6 @@ public class BookTests extends BookBaseTest {
         Arrays.stream(getData("BookData_Isbn", book.get("testname"))).forEach(isbn ->
                 actualList.add(((Map<String,String>)isbn).get("isbn")));
 
-        Assert.assertEquals(expectedList, actualList);
+        Assert.assertTrue(expectedList.containsAll(actualList));
     }
 }

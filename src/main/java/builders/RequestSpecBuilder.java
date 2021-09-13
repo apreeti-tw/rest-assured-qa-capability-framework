@@ -28,6 +28,10 @@ public class RequestSpecBuilder {
         if (parameters.get("authType").equalsIgnoreCase("oauth2CC")) {
             reqSpec = reqSpec.auth().oauth2(getAuthToken(parameters.get("base_url"), parameters.get("authParams").split(";")));
         }
+        if (parameters.get("authType").equalsIgnoreCase("basic")) {
+            String[] credentials = parameters.get("authParams").split(":");
+            reqSpec = reqSpec.auth().preemptive().basic(decodeBase64(credentials[0]), decodeBase64(credentials[1]));
+        }
         return this;
     }
 
@@ -49,7 +53,7 @@ public class RequestSpecBuilder {
 
     public RequestSpecBuilder setHeaders(String headers) {
         for (String header: headers.split(";")) {
-            reqSpec = reqSpec.header(header.split(":")[0], decodeBase64(header.split(":")[1]));
+            reqSpec = reqSpec.header(header.split(":")[0], header.split(":")[1]);
         }
         return this;
     }

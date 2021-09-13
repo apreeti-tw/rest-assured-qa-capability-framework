@@ -28,7 +28,7 @@ public class BookBaseTest {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
         requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(params.get("base_url"))
-                .setHeaders(params.get("headers"))
+                .setAuth(params)
                 .build();
     }
 
