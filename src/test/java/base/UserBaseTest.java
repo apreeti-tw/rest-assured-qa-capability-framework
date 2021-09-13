@@ -32,7 +32,7 @@ public class UserBaseTest {
         Map<String, String> setupData = (Map<String, String>) context.getAttribute("runManager");
         Map<String, String> user = (Map<String, String>) userData[0];
 
-        requestSpecification = RequestResponseSpecBuilder
+        requestSpecification = new RequestResponseSpecBuilder()
                 .get()
                 .setBaseUri(setupData.get("base_url"))
                 .build();

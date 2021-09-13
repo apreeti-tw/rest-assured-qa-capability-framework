@@ -1,5 +1,6 @@
 import base.BookBaseTest;
 import builders.BookBuilder;
+import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pojo.Book;
@@ -17,7 +18,7 @@ import static utils.DataProviderUtils.getData;
 public class BookTests extends BookBaseTest {
     @Test(dataProvider = "DataContainer", dataProviderClass = DataProviderUtils.class)
     public void testAddListOfBooks(Map<String,String> book) throws IOException {
-        Book books = requestSpecification
+        Book books = RestAssured.given(requestSpecification)
                 .body(new BookBuilder(book).setBookData())
                 .post(ADD_BOOKS_LIST.getEndPoint())
                 .then()
