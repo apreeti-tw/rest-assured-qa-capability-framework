@@ -34,6 +34,6 @@ public class UserTests extends UserBaseTest {
                 .pathParams("user_id", context.getAttribute("user_id"))
                 .delete(DELETE_USER_REQUEST.getEndPoint())
                 .then()
-                .statusCode(204);
+                .statusCode(Integer.parseInt(user.get("expected")));
     }
 }
