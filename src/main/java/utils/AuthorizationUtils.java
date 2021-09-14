@@ -3,7 +3,7 @@ package utils;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 
-import static utils.EncryptionUtils.decodeBase64;
+import static utils.HelperUtils.decodeBase64;
 
 public class AuthorizationUtils {
 

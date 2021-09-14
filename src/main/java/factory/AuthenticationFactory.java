@@ -1,15 +1,13 @@
 package factory;
 
-import io.restassured.authentication.*;
-import io.restassured.specification.RequestSpecification;
+import io.restassured.authentication.AuthenticationScheme;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static utils.AuthorizationUtils.getAuthToken;
-import static utils.EncryptionUtils.decodeBase64;
+import static utils.HelperUtils.decodeBase64;
 
 public final class AuthenticationFactory {
     private AuthenticationFactory(){}

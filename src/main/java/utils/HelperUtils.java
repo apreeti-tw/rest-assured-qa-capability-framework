@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,5 +13,9 @@ public final class HelperUtils {
             newMap.put(keyValue.split(":")[0], keyValue.split(":")[1]);
         }
         return newMap;
+    }
+
+    public static String decodeBase64(String string) {
+        return new String(Base64.getDecoder().decode(string));
     }
 }
