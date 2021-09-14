@@ -40,6 +40,6 @@ public class BookBaseTest {
     @AfterMethod
     public void deleteBookFromUser(ITestContext context) {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
-        RestAssured.given(requestSpecification).queryParams(convertToMap(params.get("queryParams"))).delete(DELETE_BOOK_LIST.getEndPoint());
+        RestAssured.given(requestSpecification).queryParams(convertToMap(params.get("queryParams"), false)).delete(DELETE_BOOK_LIST.getEndPoint());
     }
 }

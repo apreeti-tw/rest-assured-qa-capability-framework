@@ -10,7 +10,7 @@ import org.testng.xml.XmlTest;
 import java.io.IOException;
 import java.util.Map;
 
-import static utils.AuthorizationUtils.getAuthToken;
+import static factory.AuthenticationFactory.executeAuth;
 import static utils.DataProviderUtils.getRunManagerData;
 
 public class BarnBaseTest {
@@ -27,9 +27,8 @@ public class BarnBaseTest {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
         requestSpecification = new RequestResponseSpecBuilder().get()
                 .setBaseUri(params.get("base_url"))
+                .setAuth(executeAuth(params))
                 .addPathParam("user_id", params.get("pathParams"))
-                .build()
-                .auth()
-                .oauth2(getAuthToken(params.get("base_url"), params.get("authParams").split(";")));
+                .build();
     }
 }
