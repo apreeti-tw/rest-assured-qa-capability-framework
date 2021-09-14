@@ -1,7 +1,7 @@
 package base;
 
 import builders.RequestResponseSpecBuilder;
-import builders.RequestSpecBuilder;
+import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
@@ -15,6 +15,7 @@ import java.util.Map;
 import static enums.EndPoints.DELETE_BOOK_LIST;
 import static factory.AuthenticationFactory.executeAuth;
 import static utils.DataProviderUtils.getRunManagerData;
+import static utils.HelperUtils.convertToMap;
 
 public class BookBaseTest {
     protected RequestSpecification requestSpecification = null;
@@ -39,10 +40,6 @@ public class BookBaseTest {
     @AfterMethod
     public void deleteBookFromUser(ITestContext context) {
         Map<String, String> params = (Map<String, String>) context.getAttribute("runManager");
-        new RequestSpecBuilder()
-                .setBaseUri(params.get("base_url"))
-                .setQueryParams(params.get("queryParams"))
-                .build()
-                .delete(DELETE_BOOK_LIST.getEndPoint());
+        RestAssured.given(requestSpecification).queryParams(convertToMap(params.get("queryParams"))).delete(DELETE_BOOK_LIST.getEndPoint());
     }
 }
