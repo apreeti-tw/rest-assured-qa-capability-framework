@@ -3,7 +3,6 @@ package reports;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import constants.FilePaths;
-import enums.Constants;
 import utils.PropertiesUtils;
 
 import java.awt.*;
