@@ -1,5 +1,7 @@
 package reports;
 
+import com.aventstack.extentreports.ExtentTest;
+
 public final class ExtentLogger {
     private ExtentLogger(){}
 
